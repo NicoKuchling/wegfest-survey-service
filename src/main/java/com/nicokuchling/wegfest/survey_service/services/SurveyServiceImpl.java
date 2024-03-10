@@ -50,24 +50,28 @@ public class SurveyServiceImpl implements SurveyService {
     }
 
     @Override
-    public SurveyResponse getSurveyResponseByPersonId(int personId) {
-        LOG.debug("/survey/response/person return the found survey response for personId={}", personId);
+    public Set<SurveyResponse> getSurveyResponsesByIds(List<Integer> surveyResponseIds) {
+        LOG.debug("/survey/response return the found survey response objects for survey IDs: {}",
+                surveyResponseIds);
 
-        if(personId < 0) {
-            throw new InvalidInputException("Invalid personId: " + personId);
-        }
+        Map<String, String> multipleChoiceQuestionIdToAnswerMap = new HashMap<>();
+        multipleChoiceQuestionIdToAnswerMap.put("question-1", "answer-1");
+        multipleChoiceQuestionIdToAnswerMap.put("question-2", "answer-2");
 
-        if(personId == 13) {
-            throw new NotFoundException("No person found for personId: " + personId);
-        }
-
-        Map<Integer, String> multipleChoiceQuestionIdToAnswerMap = new HashMap<>();
-        multipleChoiceQuestionIdToAnswerMap.put(1, "answer-1");
-        multipleChoiceQuestionIdToAnswerMap.put(2, "answer-2");
-
-        return new SurveyResponse(
+        SurveyResponse response1 = new SurveyResponse(
                 1,
                 1,
                 multipleChoiceQuestionIdToAnswerMap, serviceUtil.getServiceAddress());
+
+        SurveyResponse response2 = new SurveyResponse(
+                2,
+                1,
+                multipleChoiceQuestionIdToAnswerMap, serviceUtil.getServiceAddress());
+
+        Set<SurveyResponse> responses = new HashSet<>();
+        responses.add(response1);
+        responses.add(response2);
+
+        return responses;
     }
 }
