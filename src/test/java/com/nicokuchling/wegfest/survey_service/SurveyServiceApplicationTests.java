@@ -1,4 +1,4 @@
-package com.nicokuchling.wegfest.surveyservice;
+package com.nicokuchling.wegfest.survey_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
